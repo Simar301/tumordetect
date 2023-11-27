@@ -1,4 +1,4 @@
-import cv2
+import cv2#importing all the libraries
 import os
 from PIL import Image
 import numpy as np
@@ -11,21 +11,21 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.utils import to_categorical
 
-image_directory='datasets/'
+image_directory='datasets/'#setting the main directory
 
-no_tumor_images=os.listdir(image_directory+ 'no/')
+no_tumor_images=os.listdir(image_directory+ 'no/')#segregating the predivided image for training
 yes_tumor_images=os.listdir(image_directory+ 'yes/')
 dataset=[]
 label=[]
 
 
-for i , image_name in enumerate(no_tumor_images):
-    if(image_name.split('.')[1]=='jpg'):
-        image=cv2.imread(image_directory+'no/'+image_name)
-        image=Image.fromarray(image,'RGB')
-        image=image.resize((64,64))
-        dataset.append(np.array(image))
-        label.append(0)
+for i , image_name in enumerate(no_tumor_images):#looping in the folder 
+    if(image_name.split('.')[1]=='jpg'):#selecting all the file with extension jpg
+        image=cv2.imread(image_directory+'no/'+image_name)#reading image from the file
+        image=Image.fromarray(image,'RGB')#converting image from(BGR)format to RGB format
+        image=image.resize((64,64))#converting image to 64*64 for consistency
+        dataset.append(np.array(image))#converting the image into numpy array
+        label.append(0)#it is a binary classification model so we have to mark the image as 1 or 0 for training
 
 for i , image_name in enumerate(yes_tumor_images):
     if(image_name.split('.')[1]=='jpg'):
@@ -35,12 +35,12 @@ for i , image_name in enumerate(yes_tumor_images):
         dataset.append(np.array(image))
         label.append(1)
 
-dataset=np.array(dataset)
-label=np.array(label)
+dataset=np.array(dataset)#converting the generated dataset to numpy array
+label=np.array(label)#converting the labels to numpy array
 
-x_train, x_test, y_train, y_test=train_test_split(dataset, label, test_size=0.2, random_state=0)
+x_train, x_test, y_train, y_test=train_test_split(dataset, label, test_size=0.2, random_state=0)#dividing dataset into train(80%),test(20#)
 
-x_train=normalize(x_train,axis=1)
+x_train=normalize(x_train,axis=1)#normafor data for training 
 x_test=normalize(x_test,axis=1)
 
 #model building
