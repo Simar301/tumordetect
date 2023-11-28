@@ -44,9 +44,9 @@ x_train=normalize(x_train,axis=1)#normafor data for training
 x_test=normalize(x_test,axis=1)
 
 #model building
+#1st layer
 model=Sequential()#building a sequential model
-model.add(Conv2D(32,(3,3),input_shape=(64,64,3)))# apply 32 different filters, each with a size of 3x3 pixels. The output of this layer will be a set of 32 feature maps
-model.add(Activation('relu'))#activation function
+model.add(Conv2D(32,(3,3),input_shape=(64,64,3)))#covolution layer with 16 filter,kernel size(3*3),[applying filter ]
 model.add(MaxPooling2D(pool_size=(2,2)))#used to select max part of an inpu(array),this helps to reduce computational power needed 
 
 model.add(Conv2D(32,(3,3),kernel_initializer='he_uniform'))
@@ -57,11 +57,14 @@ model.add(Conv2D(32,(3,3),kernel_initializer='he_uniform'))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2,2)))
 
-model.add(Flatten())
-model.add(Dense(64))
+model.add(Flatten())#converting an image to a flat list
+
+model.add(Dense(64))#2nd last layer with 64 neurons
 model.add(Activation('relu'))
+
 model.add(Dropout(0.5))
-model.add(Dense(1))
+
+model.add(Dense(1))#output layer
 model.add(Activation('sigmoid'))
 
 model.compile(loss='binary_crossentropy',optimizer='adam', metrics=['accuracy'])
