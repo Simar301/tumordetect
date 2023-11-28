@@ -67,14 +67,14 @@ model.add(Dropout(0.5))
 model.add(Dense(1))#output layer
 model.add(Activation('sigmoid'))
 
-model.compile(loss='binary_crossentropy',optimizer='adam', metrics=['accuracy'])
+model.compile(loss='binary_crossentropy',optimizer='adam', metrics=['accuracy'])#compiling the model
 
 
-model.fit(x_train, y_train, 
+model.fit(x_train, y_train, #training the model
 batch_size=16, 
 verbose=1, epochs=15, 
 validation_data=(x_test, y_test),
 shuffle=False)
 
 
-model.save('simar.h5')
+model.save('simar.h5')#saving the model
